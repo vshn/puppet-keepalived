@@ -148,12 +148,6 @@ define keepalived::lvs::virtual_server (
     order   => "250-${name}-000",
   }
 
-  concat::fragment { "keepalived.conf_lvs_virtual_server_${name}-footer":
-    target  => "${::keepalived::config_dir}/keepalived.conf",
-    content => "}\n",
-    order   => "250-${name}",
-  }
-
   if $collect_exported {
     Keepalived::Lvs::Real_server <<| virtual_server == $name |>>
   }
